@@ -22,3 +22,4 @@ Practice core AWS + GitHub fundamentals using the NYC Yellow Taxi dataset:
 ## Work Completed
 - Created feature branch: `add-data-files`
 - Updated README with lab objective and structure (this commit will be submitted via PR)
+CLI practice update
