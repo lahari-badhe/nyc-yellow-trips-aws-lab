@@ -6,7 +6,6 @@ on:
       - dev
 
 jobs:
-
   terraform-dev:
     runs-on: ubuntu-latest
 
@@ -16,24 +15,14 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         working-directory: Day5/terraform/envs/dev
         run: terraform init
 
-      - name: Terraform Validate
-        working-directory: Day5/terraform/envs/dev
-        run: terraform validate
-
       - name: Terraform Plan
         working-directory: Day5/terraform/envs/dev
         run: terraform plan
 
-      - name: Terraform Apply (Dev)
-        working-directory: Day5/terraform/envs/dev
-        run: terraform apply -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-west-2
-          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
