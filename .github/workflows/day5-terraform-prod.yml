@@ -1,0 +1,36 @@
+name: Day5 Terraform Prod Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-prod:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: Day5/terraform/envs/prod
+        run: terraform init
+
+      - name: Terraform Plan
+        working-directory: Day5/terraform/envs/prod
+        run: terraform plan
+
+      - name: Terraform Apply (Prod)
+        working-directory: Day5/terraform/envs/prod
+        run: terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+
