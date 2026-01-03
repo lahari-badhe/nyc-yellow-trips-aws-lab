@@ -1,9 +1,11 @@
-# macOS
+# mac
 .DS_Store
-**/.DS_Store
 
-# Terraform
-**/.terraform/*
+# terraform
+**/.terraform/
+**/.terraform.lock.hcl
 **/*.tfstate
 **/*.tfstate.*
-
+**/crash.log
+**/crash.*.log
+**/*.tfvars

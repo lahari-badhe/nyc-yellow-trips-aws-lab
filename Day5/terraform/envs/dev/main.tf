@@ -8,6 +8,11 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+variable "enable_rds" {
+  type        = bool
+  description = "Toggle to create RDS in this environment"
+  default     = false
+}
 
 variable "aws_region" { type = string }
 variable "db_password" { type = string }
@@ -30,6 +35,7 @@ module "lambda" {
 
 module "rds" {
   source      = "../../modules/rds"
+  enable_rds  = var.enable_rds
   identifier  = "lahari-day5-dev-postgres"
   db_name     = "day5nyc"
   db_user     = "adminuser"
@@ -38,4 +44,7 @@ module "rds" {
 
 output "day5_dev_bucket" { value = module.s3.bucket_name }
 output "day5_dev_lambda" { value = module.lambda.lambda_name }
-output "day5_dev_rds_endpoint" { value = module.rds.rds_endpoint }
+output "day5_dev_rds_endpoint" {
+  value       = var.enable_rds ? module.rds.rds_endpoint : null
+  description = "RDS endpoint (null when RDS disabled)"
+}
