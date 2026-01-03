@@ -2,27 +2,37 @@ name: Day5 Terraform Dev Deploy
 
 on:
   push:
-    branches:
-      - dev
+    branches: [ "dev" ]
+    paths:
+      - "Day5/terraform/**"
+      - ".github/workflows/day5-terraform-dev.yml"
 
 jobs:
   terraform-dev:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Day5/terraform/envs/dev
+
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+      TF_VAR_aws_region: "us-west-2"
+      TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.5.7
+
 
       - name: Terraform Init
-        working-directory: Day5/terraform/envs/dev
         run: terraform init
 
-      - name: Terraform Plan
-        working-directory: Day5/terraform/envs/dev
-        run: terraform plan
+      - name: Terraform Validate
+        run: terraform validate
 
+      - name: Terraform Plan
+        run: terraform plan -no-color
