@@ -45,6 +45,6 @@ module "rds" {
 output "day5_dev_bucket" { value = module.s3.bucket_name }
 output "day5_dev_lambda" { value = module.lambda.lambda_name }
 output "day5_dev_rds_endpoint" {
-  value       = var.enable_rds ? module.rds.rds_endpoint : null
+  value       =  module.rds.rds_endpoint 
   description = "RDS endpoint (null when RDS disabled)"
 }
