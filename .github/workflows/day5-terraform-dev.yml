@@ -10,6 +10,7 @@ on:
 jobs:
   terraform-dev:
     runs-on: ubuntu-latest
+    environment:dev
     defaults:
       run:
         working-directory: Day5/terraform/envs/dev
