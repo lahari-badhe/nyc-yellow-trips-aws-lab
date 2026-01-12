@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NYC Yellow Taxi Trip Schema",
+  "type": "object",
+  "properties": {
+    "pickup_datetime": { "type": "string", "format": "date-time" },
+    "dropoff_datetime": { "type": "string", "format": "date-time" },
+    "passenger_count": { "type": "integer", "minimum": 1 },
+    "trip_distance": { "type": "number", "minimum": 0 },
+    "fare_amount": { "type": "number", "minimum": 0 }
+  },
+  "required": [
+    "pickup_datetime",
+    "dropoff_datetime",
+    "fare_amount"
+  ]
+}
+
