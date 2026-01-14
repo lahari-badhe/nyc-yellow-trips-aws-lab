@@ -3,7 +3,8 @@
 -- Purpose: Materialize a daily pickup-zone summary dataset in Parquet for faster repeated analytics.
 -- Dependencies: nyc_taxi_datalake.vw_yellow_zone_enriched
 -- Quality expectations: Dataset contains aggregated metrics partitioned by ingestion_date.
-
+-- -- Version: 1.1
+-- Added avg_trip_duration_mins
 CREATE TABLE nyc_taxi_datalake.yellow_daily_zone_summary
 WITH (
   format = 'PARQUET',
