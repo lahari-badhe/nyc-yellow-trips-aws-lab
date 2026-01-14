@@ -1,0 +1,17 @@
+dataset: nyc_yellow_trips
+
+expectations:
+  - column: pickup_datetime
+    rule: not_null
+
+  - column: dropoff_datetime
+    rule: not_null
+
+  - column: fare_amount
+    rule: greater_than
+    value: 0
+
+  - column: trip_distance
+    rule: greater_than
+    value: 0
+
